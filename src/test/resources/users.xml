@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+	<user>
+		<email>lab.test.sending@gmail.com</email>
+		<password>a1234567890a</password>
+	</user>
+	<user>
+		<email>1@gmail.com</email>
+		<password>1</password>
+	</user>
+	<user>
+		<email>2@gmail.com</email>
+		<password>2</password>
+	</user>
+	<user>
+		<email>3@gmail.com</email>
+		<password>3</password>
+	</user>
+	<user>
+		<email>4@gmail.com</email>
+		<password>4</password>
+	</user>
+	<message>
+		<to>dembitskyib@gmail.com</to>
+		<cc>dembitskyib@gmail.com</cc>
+		<bcc>dembitskyib@gmail.com</bcc>
+		<subject>Some subject</subject>
+		<text>Some message</text>
+	</message>
+</users>
