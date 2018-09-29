@@ -9,7 +9,6 @@ import com.epam.lab.pageElements.TextInput;
 import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailLoginPage {
-	private WebDriver driver;
 	@FindBy(xpath = "//input[@type = 'email']")
 	private TextInput emailInput;
 	@FindBy(xpath = "//div[@id = 'identifierNext']//span")
@@ -18,23 +17,26 @@ public class GmailLoginPage {
 	private TextInput passwordInput;
 	@FindBy(css = "#passwordNext")
 	private Button passwordSubmit;
+	private WebDriver driver;
+	private int pageUpdateTimeOut;
 
-	public GmailLoginPage(WebDriver driver) {
+	public GmailLoginPage(WebDriver driver, int pageUpdateTimeOut) {
+		this.pageUpdateTimeOut = pageUpdateTimeOut;
 		PageFactory.initElements(new CustomFieldDecorator(driver), this);
 		this.driver = driver;
 	}
 
-	public void typeEmailAndSubmit(String login, int timeOut) {
+	public void typeEmailAndSubmit(String login) {
 		emailInput.type(login);
-		emailSubmit.click(driver, timeOut);
+		emailSubmit.click(driver, pageUpdateTimeOut);
 	}
 
-	public GmailHomePage typePasswordAndSubmit(String password, int timeOut) {
+	public GmailHomePage typePasswordAndSubmit(String password) {
 		boolean isPasswordField = true;
 		boolean shouldClickWithJS = true;
 		passwordInput.type(password, isPasswordField);
-		passwordSubmit.click(driver, timeOut, shouldClickWithJS);
-		return new GmailHomePage(driver);
+		passwordSubmit.click(driver, pageUpdateTimeOut, shouldClickWithJS);
+		return new GmailHomePage(driver, pageUpdateTimeOut);
 	}
 
 }

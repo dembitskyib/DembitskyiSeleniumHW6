@@ -13,45 +13,44 @@ public class GmailMessageBO {
 	private GmailHomePage gmailHomePage;
 	private static final Logger logger = LogManager.getLogger(GmailMessageBO.class);
 
-	public GmailMessageBO(WebDriver driver) {
-		gmailHomePage = new GmailHomePage(driver);
+	public GmailMessageBO(WebDriver driver, int pageUpdateTimeOut) {
+		gmailHomePage = new GmailHomePage(driver, pageUpdateTimeOut);
 		threadName = Thread.currentThread().getName();
 	}
 
-	public void writeEmailAndSave(Message message, int elementWaitTimeOut) {
+	public void writeEmailAndSave(Message message) {
 		logger.info(String.format("%s: Clicking compose button", threadName));
-		gmailHomePage.composeClick(elementWaitTimeOut);
+		gmailHomePage.composeClick();
 		boolean isBlockOpened = false;
-		isBlockOpened = gmailHomePage.isMessageBlockPresent(elementWaitTimeOut, isBlockOpened);
+		isBlockOpened = gmailHomePage.isMessageBlockPresent(isBlockOpened);
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, message.getTo(), "to"));
 		gmailHomePage.typeReceiver(message.getTo());
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, message.getCc(), "cc"));
-		gmailHomePage.typeCopyReceiver(message.getCc(), elementWaitTimeOut);
+		gmailHomePage.typeCopyReceiver(message.getCc());
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, message.getBcc(), "bcc"));
-		gmailHomePage.typeHiddenCopyReceiver(message.getBcc(), elementWaitTimeOut);
+		gmailHomePage.typeHiddenCopyReceiver(message.getBcc());
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, message.getSubject(), "subject"));
 		gmailHomePage.typeSubject(message.getSubject());
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, message.getText(), "text"));
 		gmailHomePage.typeMessage(message.getText());
 		logger.info(String.format("%s: Closing message block", threadName));
-		gmailHomePage.saveAndClose(elementWaitTimeOut);
-		gmailHomePage.isMessageBlockPresent(elementWaitTimeOut, isBlockOpened);
+		gmailHomePage.saveAndClose();
+		gmailHomePage.isMessageBlockPresent(isBlockOpened);
 	}
 
-	public void openDraftAndSend(Message message, String draftLettersURL, int elementWaitTimeOut,
-			int pageUpdateTimeOut) {
+	public void openDraftAndSend(Message message) {
 		logger.info(String.format("%s: Navigating to draft page", threadName));
-		gmailHomePage.draftClick(pageUpdateTimeOut);
+		gmailHomePage.draftClick();
 		logger.info(String.format("%s: Clicking on last message", threadName));
-		gmailHomePage.lastMessageClick(draftLettersURL, pageUpdateTimeOut);
+		gmailHomePage.lastMessageClick();
 		logger.info(String.format("%s: Checking saved message fields", threadName));
 		if (gmailHomePage.checkComposeFields(message)) {
 			gmailHomePage.clickSendButton();
 		}
 	}
 
-	public boolean isEmailSendingSuccessful(int timeOut) {
-		return gmailHomePage.isMessageSent(timeOut);
+	public boolean isEmailSendingSuccessful() {
+		return gmailHomePage.isMessageSent();
 	}
 
 }

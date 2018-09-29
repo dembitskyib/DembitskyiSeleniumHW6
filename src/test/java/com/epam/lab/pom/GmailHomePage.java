@@ -15,9 +15,10 @@ import com.epam.lab.pageElements.Button;
 import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailHomePage {
+	private final String MESSAGE_BLOCK_XPATH = "//div[contains(@class, 'nH') and contains(@class ,'Hd')]";
 	private WebDriver driver;
 	private GmailMessageBlockWidget gmailMessageBlockWidget;
-	private final String MESSAGE_BLOCK_XPATH = "//div[contains(@class, 'nH') and contains(@class ,'Hd')]";
+	private int pageUpdateTimeOut;
 	@FindBy(xpath = "//div[contains(@class, 'T-I') and contains(@class ,'J-J5-Ji') and contains(@class ,'T-I-KE') and contains(@class ,'L3')]")
 	private Button composeButton;
 	@FindBy(xpath = "//div[contains(@class, 'nH') and contains(@class ,'Hd')]")
@@ -31,22 +32,23 @@ public class GmailHomePage {
 	@FindBy(id = "link_vsm")
 	private WebElement viewSentMessage;
 
-	public GmailHomePage(WebDriver driver) {
+	public GmailHomePage(WebDriver driver, int pageUpdateTimeOut) {
+		this.pageUpdateTimeOut = pageUpdateTimeOut;
 		this.driver = driver;
 		PageFactory.initElements(new CustomFieldDecorator(driver), this);
 		gmailMessageBlockWidget = new GmailMessageBlockWidget(driver);
 	}
 
-	public void composeClick(int timeOut) {
-		composeButton.click(driver, timeOut);
+	public void composeClick() {
+		composeButton.click(driver, pageUpdateTimeOut);
 	}
 
-	public void draftClick(int timeOut) {
-		draftButton.click(driver, timeOut);
+	public void draftClick() {
+		draftButton.click(driver, pageUpdateTimeOut);
 	}
 
-	public void lastMessageClick(String draftLettersURL, int timeOut) {
-		isURLCorrect(draftLettersURL, timeOut);
+	public void lastMessageClick() {
+		isURLCorrect("drafts");
 		lastMessage.click();
 	}
 
@@ -54,12 +56,12 @@ public class GmailHomePage {
 		gmailMessageBlockWidget.typeReceiver(receiver);
 	}
 
-	public void typeCopyReceiver(String receiver, int timeOut) {
-		gmailMessageBlockWidget.typeCopyReceiver(receiver, timeOut);
+	public void typeCopyReceiver(String receiver) {
+		gmailMessageBlockWidget.typeCopyReceiver(receiver, pageUpdateTimeOut);
 	}
 
-	public void typeHiddenCopyReceiver(String receiver, int timeOut) {
-		gmailMessageBlockWidget.typeHiddenCopyReceiver(receiver, timeOut);
+	public void typeHiddenCopyReceiver(String receiver) {
+		gmailMessageBlockWidget.typeHiddenCopyReceiver(receiver, pageUpdateTimeOut);
 	}
 
 	public void typeSubject(String subject) {
@@ -74,19 +76,19 @@ public class GmailHomePage {
 		return gmailMessageBlockWidget.checkComposeFields(message);
 	}
 
-	public void saveAndClose(int timeOut) {
-		gmailMessageBlockWidget.saveAndClose(timeOut);
+	public void saveAndClose() {
+		gmailMessageBlockWidget.saveAndClose(pageUpdateTimeOut);
 	}
 
 	public void clickSendButton() {
 		gmailMessageBlockWidget.clickSendButton();
 	}
 
-	public boolean isMessageBlockPresent(int timeOut, boolean isOpened) {
+	public boolean isMessageBlockPresent(boolean isOpened) {
 		boolean isBlockClosed = isOpened;
 		try {
 			if (isOpened) {
-				(new WebDriverWait(driver, timeOut)).until(new Function<WebDriver, Boolean>() {
+				(new WebDriverWait(driver, pageUpdateTimeOut)).until(new Function<WebDriver, Boolean>() {
 					public Boolean apply(WebDriver driver) {
 						boolean isPresent = true;
 						try {
@@ -98,7 +100,7 @@ public class GmailHomePage {
 					}
 				});
 			} else {
-				(new WebDriverWait(driver, timeOut)).until(ExpectedConditions.visibilityOf(messageBlock));
+				(new WebDriverWait(driver, pageUpdateTimeOut)).until(ExpectedConditions.visibilityOf(messageBlock));
 			}
 		} catch (Exception ex) {
 			isBlockClosed = !isBlockClosed;
@@ -106,20 +108,20 @@ public class GmailHomePage {
 		return !isBlockClosed;
 	}
 
-	public boolean isURLCorrect(String expectedURL, int timeOut) {
+	public boolean isURLCorrect(String expectedURL) {
 		boolean isComparisionFailed = false;
 		try {
-			(new WebDriverWait(driver, timeOut)).until((dr) -> dr.getCurrentUrl().equals(expectedURL));
+			(new WebDriverWait(driver, pageUpdateTimeOut)).until((dr) -> dr.getCurrentUrl().contains(expectedURL));
 		} catch (Exception ex) {
 			isComparisionFailed = true;
 		}
 		return !isComparisionFailed;
 	}
 
-	public boolean isMessageSent(int timeOut) {
+	public boolean isMessageSent() {
 		boolean isFailed = false;
 		try {
-			(new WebDriverWait(driver, timeOut)).until(ExpectedConditions.visibilityOf(viewSentMessage));
+			(new WebDriverWait(driver, pageUpdateTimeOut)).until(ExpectedConditions.visibilityOf(viewSentMessage));
 		} catch (Exception ex) {
 			isFailed = true;
 		}

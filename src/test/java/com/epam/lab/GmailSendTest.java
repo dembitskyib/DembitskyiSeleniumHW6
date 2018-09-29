@@ -14,15 +14,12 @@ import com.epam.lab.model.Users;
 import com.epam.lab.utils.DriverPool;
 import com.epam.lab.utils.parsers.JAXBParser;
 import com.epam.lab.utils.parsers.PropertyParser;
-import com.epam.lab.utils.parsers.XMLParser;
 
 public class GmailSendTest {
 	private final String PROPERTIES_PATH = "src/test/resources/config.properties";
-
+	private final String INITIAL_PAGE = "https://www.google.com/gmail/";
 	private Users users;
-	private XMLParser xmlParser;
 	private PropertyParser propertyParser;
-	private int elementWaitTimeOut;
 	private int pageUpdateTimeOut;
 	private int implicitlyWait;
 	private DriverPool driverPool;
@@ -30,11 +27,9 @@ public class GmailSendTest {
 	@BeforeClass
 	public void parametersSetup() {
 		propertyParser = new PropertyParser(PROPERTIES_PATH);
-		xmlParser = new XMLParser(propertyParser.getProperty("xmlPath"));
 		System.setProperty("webdriver.chrome.driver", propertyParser.getProperty("chromeDriverPath"));
 		users = JAXBParser.getUsers(propertyParser.getProperty("usersDataPath"));
 		pageUpdateTimeOut = propertyParser.getIntProperty("pageUpdateTimeOut");
-		elementWaitTimeOut = propertyParser.getIntProperty("pageElementChangeTimeOut");
 		implicitlyWait = propertyParser.getIntProperty("implicitlyWait");
 		driverPool = DriverPool.getInstance(propertyParser.getIntProperty("maxDriverConnections"));
 	}
@@ -42,14 +37,13 @@ public class GmailSendTest {
 	@Test(dataProvider = "user-data")
 	public void gmailSaveAndSendTest(User user) {
 		WebDriver chromeDriver = driverPool.getDriver(implicitlyWait);
-		chromeDriver.get("https://www.google.com/gmail/");
-		LoginBO loginBO = new LoginBO(chromeDriver);
-		loginBO.logIn(user.getEmail(), user.getPassword(), elementWaitTimeOut);
-		GmailMessageBO gmailMessageBO = new GmailMessageBO(chromeDriver);
-		gmailMessageBO.writeEmailAndSave(users.getMessage(), elementWaitTimeOut);
-		gmailMessageBO.openDraftAndSend(users.getMessage(), xmlParser.getProperty("draftLettersURL"),
-				elementWaitTimeOut, pageUpdateTimeOut);
-		Assert.assertTrue(gmailMessageBO.isEmailSendingSuccessful(pageUpdateTimeOut));
+		chromeDriver.get(INITIAL_PAGE);
+		LoginBO loginBO = new LoginBO(chromeDriver, pageUpdateTimeOut);
+		loginBO.logIn(user.getEmail(), user.getPassword());
+		GmailMessageBO gmailMessageBO = new GmailMessageBO(chromeDriver, pageUpdateTimeOut);
+		gmailMessageBO.writeEmailAndSave(users.getMessage());
+		gmailMessageBO.openDraftAndSend(users.getMessage());
+		Assert.assertTrue(gmailMessageBO.isEmailSendingSuccessful());
 		chromeDriver.quit();
 	}
 

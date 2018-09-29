@@ -12,15 +12,15 @@ public class LoginBO {
 	private String threadName;
 	private static final Logger logger = LogManager.getLogger(LoginBO.class);
 
-	public LoginBO(WebDriver driver) {
-		gmailLoginPage = new GmailLoginPage(driver);
+	public LoginBO(WebDriver driver, int pageUpdateTimeOut) {
+		gmailLoginPage = new GmailLoginPage(driver, pageUpdateTimeOut);
 		threadName = Thread.currentThread().getName();
 	}
 
-	public void logIn(String email, String password, int timeOut) {
+	public void logIn(String email, String password) {
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, email, "email"));
-		gmailLoginPage.typeEmailAndSubmit(email, timeOut);
+		gmailLoginPage.typeEmailAndSubmit(email);
 		logger.info(String.format(VALUE_ATTACHED_MESSAGE, threadName, password, "password"));
-		gmailLoginPage.typePasswordAndSubmit(password, timeOut);
+		gmailLoginPage.typePasswordAndSubmit(password);
 	}
 }
