@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="gmail function test suite">
+<suite name="gmail function test suite"
+	data-provider-thread-count="2" parallel="methods">
 	<test name="GmailTest">
 		<classes>
 			<class name="com.epam.lab.GmailSendTest" />

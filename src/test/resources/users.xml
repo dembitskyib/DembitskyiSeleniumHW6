@@ -5,20 +5,12 @@
 		<password>a1234567890a</password>
 	</user>
 	<user>
-		<email>1@gmail.com</email>
-		<password>1</password>
+		<email>lab.test.sending1@gmail.com</email>
+		<password>a1234567890a</password>
 	</user>
 	<user>
-		<email>2@gmail.com</email>
-		<password>2</password>
-	</user>
-	<user>
-		<email>3@gmail.com</email>
-		<password>3</password>
-	</user>
-	<user>
-		<email>4@gmail.com</email>
-		<password>4</password>
+		<email>lab.test.sending2@gmail.com</email>
+		<password>a1234567890a</password>
 	</user>
 	<message>
 		<to>dembitskyib@gmail.com</to>
