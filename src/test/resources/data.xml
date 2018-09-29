@@ -2,7 +2,6 @@
 <data>
 	<pageNavigation>
 		<homePageURL>https://www.google.com/gmail/</homePageURL>
-		<inputMessagesPageURL>https://mail.google.com/mail/u/0/#inbox</inputMessagesPageURL>
 		<draftLettersURL>https://mail.google.com/mail/u/0/#drafts</draftLettersURL>
 	</pageNavigation>
 	<user>

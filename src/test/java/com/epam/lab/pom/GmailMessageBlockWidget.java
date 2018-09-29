@@ -5,11 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.epam.lab.model.Message;
 import com.epam.lab.pageElements.Button;
-import com.epam.lab.pageElements.CustomFieldDecorator;
 import com.epam.lab.pageElements.HiddenInput;
 import com.epam.lab.pageElements.TextInput;
-
+import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailMessageBlockWidget {
 	private WebDriver driver;
@@ -65,10 +65,10 @@ public class GmailMessageBlockWidget {
 		messageInput.type(message);
 	}
 
-	public boolean checkComposeFields(String receiver, String cc, String bcc, String subject, String message) {
-		return receiverInput.getValue().equals(receiver) || ccInput.getValue().equals(cc)
-				|| bccInput.getValue().equals("bcc") || subjectInput.getValue().equals(subject)
-				|| messageInput.getText().equals(message) ? true : false;
+	public boolean checkComposeFields(Message message) {
+		return receiverInput.getValue().equals(message.getTo()) || ccInput.getValue().equals(message.getCc())
+				|| bccInput.getValue().equals(message.getBcc()) || subjectInput.getValue().equals(message.getSubject())
+				|| messageInput.getText().equals(message.getText()) ? true : false;
 	}
 
 	public void saveAndClose(int timeOut) {
