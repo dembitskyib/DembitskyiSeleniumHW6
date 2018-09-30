@@ -15,17 +15,15 @@ import com.epam.lab.pageElements.Button;
 import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailHomePage {
-	private final String MESSAGE_BLOCK_XPATH = "//div[contains(@class, 'nH') and contains(@class ,'Hd')]";
+	private final String MESSAGE_BLOCK_XPATH = "//div[@role='dialog']";
 	private WebDriver driver;
 	private GmailMessageBlockWidget gmailMessageBlockWidget;
 	private int pageUpdateTimeOut;
-	@FindBy(xpath = "//div[contains(@class, 'T-I') and contains(@class ,'J-J5-Ji') and contains(@class ,'T-I-KE') and contains(@class ,'L3')]")
+	@FindBy(xpath = "(//div[@role='navigation']/..//div[@role='button'])[1]")
 	private Button composeButton;
-	@FindBy(xpath = "//div[contains(@class, 'nH') and contains(@class ,'Hd')]")
-	private WebElement composeTable;
 	@FindBy(css = "*[href*='#drafts'")
 	private Button draftButton;
-	@FindBy(xpath = "//*[@role='main']//tr[contains(@class, 'zA') and contains(@class ,'yO')][1]")
+	@FindBy(xpath = "//*[@role='main']//tr[1]")
 	private WebElement lastMessage;
 	@FindBy(xpath = MESSAGE_BLOCK_XPATH)
 	private WebElement messageBlock;

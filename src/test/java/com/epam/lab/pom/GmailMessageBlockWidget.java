@@ -15,11 +15,11 @@ public class GmailMessageBlockWidget {
 	private WebDriver driver;
 	@FindBy(css = "*[name='to']")
 	private TextInput receiverInputField;
-	@FindBy(xpath = "//span[contains(@class, 'aB') and contains(@class ,'gQ') and contains(@class ,'pE')]")
+	@FindBy(xpath = "//*[@name='to']//following-sibling::div//*[@role='link'][1]")
 	private Button copyReceiverButton;
 	@FindBy(css = "*[name='cc']")
 	private TextInput copyReceiverInputField;
-	@FindBy(xpath = "//span[contains(@class, 'aB') and contains(@class ,'gQ') and contains(@class ,'pB')]")
+	@FindBy(xpath = "//*[@name='cc']//following-sibling::div//*[@role='link'][2]")
 	private Button hiddenCopyReceiverButton;
 	@FindBy(css = "*[name='bcc']")
 	private TextInput hiddenCopyReceiverInputField;
@@ -27,7 +27,7 @@ public class GmailMessageBlockWidget {
 	private TextInput subjectInputField;
 	@FindBy(xpath = "//*[@role='textbox']")
 	private TextInput messageInput;
-	@FindBy(xpath = "//img[@class='Ha']")
+	@FindBy(xpath = "//*[@role='dialog']//img[3]")
 	private Button saveAndCloseButton;
 	@FindBy(xpath = "//input[@name = 'to']")
 	private HiddenInput receiverInput;

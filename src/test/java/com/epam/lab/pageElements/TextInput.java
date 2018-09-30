@@ -8,14 +8,6 @@ public class TextInput extends Element {
 		super(webElement);
 	}
 
-	public void type(String text, boolean isPasswordField) {
-		if (isPasswordField) {
-			super.sendKeys(text);
-		} else {
-			type(text);
-		}
-	}
-
 	public void type(String text) {
 		super.clear();
 		super.sendKeys(text);

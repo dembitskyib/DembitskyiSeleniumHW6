@@ -29,16 +29,20 @@ public class DriverPool {
 	}
 
 	public WebDriver getDriver(int implicitlyWait) {
-		synchronized (this) {
-			drivers[counter % maxConnections] = initDriver(implicitlyWait);
+		if (Objects.isNull(drivers[counter % maxConnections])) {
+			synchronized (this) {
+				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa" + counter);
+				drivers[counter % maxConnections] = initDriver(implicitlyWait);
+			}
 		}
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa" + counter);
 		counter++;
 		return drivers[(counter - 1) % maxConnections];
 	}
 
 	public void quitAll() {
 		for (int i = 0; i < drivers.length; i++) {
-			if (Objects.isNull(drivers[i])) {
+			if (!Objects.isNull(drivers[i])) {
 				drivers[i].quit();
 			}
 		}

@@ -11,13 +11,9 @@ public class Button extends Element {
 		super(webElement);
 	}
 
-	public void click(WebDriver driver, int timeOut, boolean shouldClickWithJS) {
-		if (shouldClickWithJS) {
-			JavascriptExecutor executor = (JavascriptExecutor) driver;
-			executor.executeScript("arguments[0].click();", webElement);
-		} else {
-			click(driver, timeOut);
-		}
+	public void clickWithJs(WebDriver driver, int timeOut) {
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].click();", webElement);
 	}
 
 	public void click(WebDriver driver, int timeOut) {

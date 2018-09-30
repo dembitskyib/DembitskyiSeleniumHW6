@@ -3,6 +3,8 @@ package com.epam.lab.pom;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.epam.lab.pageElements.Button;
 import com.epam.lab.pageElements.TextInput;
@@ -27,16 +29,23 @@ public class GmailLoginPage {
 	}
 
 	public void typeEmailAndSubmit(String login) {
+		waitPageUpdate();
 		emailInput.type(login);
 		emailSubmit.click(driver, pageUpdateTimeOut);
 	}
 
 	public GmailHomePage typePasswordAndSubmit(String password) {
-		boolean isPasswordField = true;
-		boolean shouldClickWithJS = true;
-		passwordInput.type(password, isPasswordField);
-		passwordSubmit.click(driver, pageUpdateTimeOut, shouldClickWithJS);
+		passwordInput.sendKeys(password);
+		passwordSubmit.clickWithJs(driver, pageUpdateTimeOut);
 		return new GmailHomePage(driver, pageUpdateTimeOut);
+	}
+
+	private void waitPageUpdate() {
+		try {
+			(new WebDriverWait(driver, pageUpdateTimeOut)).until(ExpectedConditions.urlContains("signin"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }
