@@ -31,11 +31,9 @@ public class DriverPool {
 	public WebDriver getDriver(int implicitlyWait) {
 		if (Objects.isNull(drivers[counter % maxConnections])) {
 			synchronized (this) {
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa" + counter);
 				drivers[counter % maxConnections] = initDriver(implicitlyWait);
 			}
 		}
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa" + counter);
 		counter++;
 		return drivers[(counter - 1) % maxConnections];
 	}
