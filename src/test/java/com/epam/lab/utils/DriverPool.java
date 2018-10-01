@@ -34,8 +34,7 @@ public class DriverPool {
 				drivers[counter % maxConnections] = initDriver(implicitlyWait);
 			}
 		}
-		counter++;
-		return drivers[(counter - 1) % maxConnections];
+		return drivers[(counter++) % maxConnections];
 	}
 
 	public void quitAll() {

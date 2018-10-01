@@ -54,8 +54,7 @@ public class GmailSendTest {
 
 	@DataProvider(name = "user-data", parallel = true)
 	public Object[] provide() throws Exception {
-		Object[] userList = users.getUsers().toArray();
-		return userList;
+		return users.getUsers().toArray();
 	}
 
 }

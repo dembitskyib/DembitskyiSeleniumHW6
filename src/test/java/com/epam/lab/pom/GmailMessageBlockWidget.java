@@ -7,36 +7,36 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.epam.lab.model.Message;
 import com.epam.lab.pageElements.Button;
-import com.epam.lab.pageElements.HiddenInput;
-import com.epam.lab.pageElements.TextInput;
+import com.epam.lab.pageElements.Input;
+import com.epam.lab.pageElements.DivTextInput;
 import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailMessageBlockWidget {
 	private WebDriver driver;
 	@FindBy(css = "*[name='to']")
-	private TextInput receiverInputField;
+	private DivTextInput receiverInputField;
 	@FindBy(xpath = "//*[@name='to']//following-sibling::div//*[@role='link'][1]")
 	private Button copyReceiverButton;
 	@FindBy(css = "*[name='cc']")
-	private TextInput copyReceiverInputField;
+	private DivTextInput copyReceiverInputField;
 	@FindBy(xpath = "//*[@name='cc']//following-sibling::div//*[@role='link'][2]")
 	private Button hiddenCopyReceiverButton;
 	@FindBy(css = "*[name='bcc']")
-	private TextInput hiddenCopyReceiverInputField;
+	private DivTextInput hiddenCopyReceiverInputField;
 	@FindBy(css = "*[name='subjectbox']")
-	private TextInput subjectInputField;
+	private DivTextInput subjectInputField;
 	@FindBy(xpath = "//*[@role='textbox']")
-	private TextInput messageInput;
+	private DivTextInput messageInput;
 	@FindBy(xpath = "//*[@role='dialog']//img[3]")
 	private Button saveAndCloseButton;
 	@FindBy(xpath = "//input[@name = 'to']")
-	private HiddenInput receiverInput;
+	private Input receiverInput;
 	@FindBy(xpath = "//input[@name = 'cc']")
-	private HiddenInput ccInput;
+	private Input ccInput;
 	@FindBy(xpath = "//input[@name = 'bcc']")
-	private HiddenInput bccInput;
+	private Input bccInput;
 	@FindBy(xpath = "//input[@name = 'subject']")
-	private HiddenInput subjectInput;
+	private Input subjectInput;
 
 	public GmailMessageBlockWidget(WebDriver driver) {
 		this.driver = driver;

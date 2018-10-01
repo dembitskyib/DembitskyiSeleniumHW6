@@ -7,16 +7,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.epam.lab.pageElements.Button;
-import com.epam.lab.pageElements.TextInput;
+import com.epam.lab.pageElements.DivTextInput;
 import com.epam.lab.utils.CustomFieldDecorator;
 
 public class GmailLoginPage {
 	@FindBy(xpath = "//input[@type = 'email']")
-	private TextInput emailInput;
+	private DivTextInput emailInput;
 	@FindBy(xpath = "//div[@id = 'identifierNext']//span")
 	private Button emailSubmit;
 	@FindBy(name = "password")
-	private TextInput passwordInput;
+	private DivTextInput passwordInput;
 	@FindBy(css = "#passwordNext")
 	private Button passwordSubmit;
 	private WebDriver driver;
